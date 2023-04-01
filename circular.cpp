@@ -39,7 +39,6 @@ void createNodes(Node *&head)
 
 void display(Node *head)
 {
-    cout<<"Node in the list are as follows:\n";
     Node *temp=head; 
     while(temp->next!=head)
     {
@@ -51,10 +50,84 @@ void display(Node *head)
     cout<<temp->var;
 }
 
+//Inserting a new node in the beginning of a list.
+void inertAtBeginning(Node *&head,int data)
+{
+    Node* newnode=new Node(data);
+    if(head==nullptr)
+    {
+        head=newnode;
+        newnode->next=head;
+    }
+    else
+    {
+        // newnode->next=head;
+        // head=newnode;
+        Node* temp=head;
+        while (temp->next!=head)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+        newnode->next=head;
+        head=newnode;
+    }   
+}
+
+void insertAtEnd(Node *&head,int data)
+{
+    Node* newnode=new Node(data);
+    Node *temp=head;
+    if(head==0)
+    {
+        head=newnode;
+        newnode->next=head;
+    }
+    else
+    {
+        while (temp->next!=head)
+        {
+            temp=temp->next;
+        }
+        temp->next=newnode;
+        newnode->next=head;
+    }
+
+}
+
+void deleteHeadOfTheList(Node *&head)
+{
+    if(head->next==head)
+    {
+        Node*temp=head;
+        delete(head);
+        head=0;
+        return;
+    }
+    Node*temp=head;
+    while (temp->next!=head)
+    {
+        temp=temp->next;
+    }
+    temp->next=head->next;
+    Node* free=head;
+    delete(free);
+    head=temp->next;
+}
 int main(int argc, char const *argv[])
 {
    Node *head=0;
    createNodes(head);
+   display(head);
+   int data;
+//    cout<<"\nEnter data in the first node:\n";
+//    cin>>data;
+//    inertAtBeginning(head,data);
+    // cout<<"\nEnter data in the End node:\n";
+    // cin>>data;
+    // insertAtEnd(head,data);
+    deleteHeadOfTheList(head);
+   cout<<"\nUpdated list is:\n";
    display(head);
    return 0;
 }
