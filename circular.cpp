@@ -114,20 +114,58 @@ void deleteHeadOfTheList(Node *&head)
     delete(free);
     head=temp->next;
 }
+
+int lengthOfNode(Node *head)
+{
+    Node* temp=head;
+    int i=0;
+    while (temp->next!=head)
+    {
+        temp=temp->next;
+        ++i;
+    }
+    return (i+1);
+    
+}
+void deleteKthNode(Node *&head,int position)
+{
+    if(!head) return;
+    if(position>lengthOfNode(head))
+        return;
+    if(position==1)
+    {
+        deleteHeadOfTheList(head);
+        return;
+    }
+    Node *temp=head;
+    int i=1;
+    while(i<position-1)
+    {
+        temp=temp->next;
+        ++i;
+    }
+    Node *remove=temp->next;
+    temp->next=temp->next->next;
+    delete(remove);
+
+}
 int main(int argc, char const *argv[])
 {
    Node *head=0;
    createNodes(head);
    display(head);
-   int data;
+//    int data;
 //    cout<<"\nEnter data in the first node:\n";
 //    cin>>data;
 //    inertAtBeginning(head,data);
     // cout<<"\nEnter data in the End node:\n";
     // cin>>data;
     // insertAtEnd(head,data);
-    deleteHeadOfTheList(head);
-   cout<<"\nUpdated list is:\n";
-   display(head);
-   return 0;
+    int position;
+    cout<<"\nEnter a position to delete:\n";
+    cin>>position;
+    deleteKthNode(head,position);
+    cout<<"\nUpdated list is:\n";
+    display(head);
+    return 0;
 }
